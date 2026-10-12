@@ -1,41 +1,137 @@
-# Reverse Search
+# Reverse Search Chrome Extension
 
-A Chrome extension that reverses a search query. For example, entering `what is apple` sends `elppa si tahw` to the search engine.
+Reverse Search is a Chrome extension that reverses a search query before sending it to a search engine.
 
-## Search from Chrome's address bar
+For example:
+
+- Original query: `what is apple`
+- Reversed query: `elppa si tahw`
+
+The extension provides three ways to perform a reverse search:
+
+- A popup search box available from the Chrome toolbar.
+- The Chrome address-bar keyword `reverse`.
+- Optional on-page reversal support for supported search-engine websites.
+
+## Why I started this project
+
+The idea for this project came from a simple experience at a shoe shop. The people there used to tell or pronounce the shoe name in the opposite way. That made me curious, so I thought it would be interesting to search for words on Google in reverse order.
+
+That small idea became Reverse Search: a lightweight browser extension that makes reverse searching quick and easy.
+
+## What the project does
+
+Reverse Search reverses the characters in a query and opens the result in a search engine. It supports searches through the extension popup and Chrome's supported omnibox keyword API.
+
+### Search from Chrome's address bar
 
 Chrome does not allow an extension to silently rewrite every ordinary address-bar search. Instead, Reverse Search uses Chrome's supported omnibox keyword API:
 
-1. Focus Chrome's address bar (`Ctrl` + `L`).
-2. Type `reverse`, then press Space or Tab.
-3. Type your query and press Enter.
+1. Focus Chrome's address bar with `Ctrl` + `L` on Windows/Linux or `Command` + `L` on macOS.
+2. Type `reverse`, then press `Space` or `Tab`.
+3. Enter your search query and press `Enter`.
 
-For example, `reverse what is apple` searches Google for `elppa si tahw`. This route does not depend on Google page markup.
+For example, typing `reverse what is apple` searches Google for `elppa si tahw`.
 
-You can also click the Reverse Search toolbar icon and use its popup search field. It has the same reliable behavior and opens the reversed Google search in a new tab.
+You can also click the Reverse Search toolbar icon and enter a query in the popup search field. The reversed Google search opens in a new tab.
+
+## Languages used
+
+The project is built with the following web technologies:
+
+| Language | Usage | Approximate share |
+| --- | --- | ---: |
+| JavaScript | Extension logic, popup behavior, omnibox integration, and page interaction | 57.2% |
+| HTML | Popup and extension interface | 31.2% |
+| CSS | Styling and layout | 11.6% |
+
+The extension uses **Manifest V3** and does not require a backend server or external framework.
+
+## Features
+
+- Reverse search queries before submitting them.
+- Search from the Chrome toolbar popup.
+- Search from the address bar using the `reverse` keyword.
+- Optional support for supported search-engine websites.
+- Supports Google, Bing, Brave Search, DuckDuckGo, Ecosia, and Startpage.
+- Reverses Unicode code points safely, including emoji and other non-BMP characters.
+- Uses narrow host access and does not collect, store, or share user data.
 
 ## Install locally
 
-1. Open `chrome://extensions` in Chrome.
-2. Enable **Developer mode**.
-3. Choose **Load unpacked** and select this folder.
-4. Search on Google, Bing, Brave Search, DuckDuckGo, Ecosia, or Startpage.
+1. Clone or download this repository.
+2. Open `chrome://extensions` in Google Chrome.
+3. Enable **Developer mode**.
+4. Click **Load unpacked**.
+5. Select the project folder.
+6. Pin the extension to the toolbar if you want quick access to the popup.
+
+After installation, you can use the toolbar popup or type `reverse` followed by a query in Chrome's address bar.
+
+## Privacy and security
+
+- The extension uses Manifest V3.
+- It does not collect, transmit, store, or share user data.
+- It does not use analytics.
+- It does not record keystrokes.
+- It does not use remote code.
+- Host access is limited to supported search-engine domains.
+- The website helper only changes a submitted search field.
+- The popup and omnibox keyword use Chrome extension APIs instead of relying on changing search-engine page markup.
+
+## Contributing
+
+Contributions, suggestions, bug reports, and improvements are welcome.
+
+### Steps to contribute
+
+1. **Fork** this repository on GitHub.
+2. **Clone** your fork locally:
+
+   ```bash
+   git clone https://github.com/<your-username>/Reverse-Search-Chrome-Extension.git
+   cd Reverse-Search-Chrome-Extension
+   ```
+
+3. Create a feature branch:
+
+   ```bash
+   git checkout -b feature/your-change
+   ```
+
+4. Make your changes and test them by loading the extension through `chrome://extensions`.
+5. Check that existing functionality still works, including the popup, the `reverse` omnibox keyword, and supported search-engine pages.
+6. Commit your changes with a clear message:
+
+   ```bash
+   git add .
+   git commit -m "Describe your change"
+   ```
+
+7. Push your branch to your fork:
+
+   ```bash
+   git push origin feature/your-change
+   ```
+
+8. Open a pull request against the `RabindraMishra-AIDS/Reverse-Search-Chrome-Extension` repository.
+
+When adding support for another search engine, add only its exact HTTPS domain to `content_scripts.matches` in `manifest.json`. Avoid broad patterns such as `<all_urls>` so that permissions remain narrow and privacy-friendly.
 
 ## Publishing checklist
 
-- Create 16×16, 48×48, and 128×128 PNG icons at `icons/icon16.png`, `icons/icon48.png`, and `icons/icon128.png` before uploading. Chrome Web Store requires a 128px icon.
-- Zip the folder contents (not the enclosing folder) and upload it through the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
-- Use a privacy-policy page that states: the extension changes search text locally, does not transmit, collect, store, or share user data, and has no analytics.
-- Supply screenshots and a detailed-store listing. Keep the description aligned with the extension's actual behavior.
+Before publishing the extension to the Chrome Web Store:
 
-## Security and privacy choices
+- Add 16×16, 48×48, and 128×128 PNG icons at:
+  - `icons/icon16.png`
+  - `icons/icon48.png`
+  - `icons/icon128.png`
+- Zip the contents of the project folder, not the enclosing folder.
+- Upload the ZIP through the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
+- Provide a privacy-policy page explaining that the extension changes search text locally and does not collect, store, transmit, or share user data.
+- Add screenshots and a detailed store listing.
+- Keep the store description aligned with the extension's actual behavior.
 
-- Manifest V3, no remotely hosted code, no data collection, and no broad permissions.
-- Host access is limited to six search-engine domains; it cannot read pages elsewhere.
-- The website helper only changes a submitted search field. It does not record keystrokes or use storage.
-- The popup and omnibox keyword use Chrome extension APIs rather than a search engine's changing page UI.
-- Unicode code points are reversed safely, so emoji and other non-BMP characters are not corrupted.
+## License
 
-## Extending support
-
-To support another search engine, add its exact HTTPS domain to `content_scripts.matches` in `manifest.json`. Keep the list narrow: broad patterns such as `<all_urls>` make the privacy review and Web Store approval harder. Add an integration test against the site before publishing because individual engines can change their form markup.
+No license has been specified for this project yet. If you would like others to reuse, modify, or redistribute the code, consider adding an appropriate open-source license file.
