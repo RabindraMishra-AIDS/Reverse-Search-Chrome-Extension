@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reverse Search</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <h1>Reverse Search</h1>
+      <p>Search normally. We send it backwards.</p>
+      <form id="search-form">
+        <label for="query">Search query</label>
+        <input id="query" name="query" type="text" autocomplete="off" placeholder="what is apple" autofocus>
+        <button type="submit">Reverse &amp; search</button>
+      </form>
+      <p class="hint">Address bar: type <kbd>reverse</kbd>, Space, then your query.</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

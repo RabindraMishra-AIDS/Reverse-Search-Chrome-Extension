@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Reverse Search",
+  "version": "1.0.0",
+  "description": "Turns your search query around right before it is submitted.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/*",
+        "https://www.bing.com/*",
+        "https://search.brave.com/*",
+        "https://duckduckgo.com/*",
+        "https://www.ecosia.org/*",
+        "https://www.startpage.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "omnibox": {
+    "keyword": "reverse"
+  },
+  "action": {
+    "default_title": "Reverse Search",
+    "default_popup": "popup.html"
+  }
+}
